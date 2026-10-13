@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "texture_size": [64, 64],
+  "scale": 1,
+  "motion_scale": 1,
+  "textures": {},
+  "sockets": {},
+  "bones": {
+    "root": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "body": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "head": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "jaw": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "tongue": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "tail": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "tail_tip": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "right_ear": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "right_ear_tip": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "left_ear": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "left_ear_tip": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "right_front_leg": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "right_front_paw": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "left_front_leg": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "left_front_paw": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "right_hind_leg": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "right_hind_paw": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "left_hind_leg": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []},
+    "left_hind_paw": {"pivot": [0, 0, 0], "rotation": [0, 0, 0], "cubes": []}
+  }
+}

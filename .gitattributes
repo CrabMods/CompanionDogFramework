@@ -1,0 +1,13 @@
+* text=auto eol=lf
+
+# Managed runtime hashes cover exact bytes, including line endings.
+.agents/skills/minecraft-mod-testing/** -text
+.minecraft-mod-testing/** -text
+mod-build.ps1 -text
+mod-build.cmd -text
+
+# Disable autocrlf on generated files, they always generate with LF
+# Add any extra files or paths here to make git stop saying they
+# are changed when only line endings change.
+src/generated/**/.cache/cache text eol=lf
+src/generated/**/*.json text eol=lf

@@ -1,0 +1,10 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="All Rights Reserved"
+[[mods]]
+modId="companiondog_visualtest"
+version="1.0"
+displayName="Companion Dog Hidden Visual Harness"
+description='''Test-only instrumentation. Loaded only by tools/run-visual-tests.ps1; never packaged in the mod JAR.'''
+[[mixins]]
+config="companiondog-visual-test.mixins.json"

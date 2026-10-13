@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [{"item":"minecraft:slime_ball"},[{"item":"minecraft:lime_wool"},{"item":"minecraft:yellow_wool"}]],
+  "result": {"id":"companiondog:tennis_ball","count":2}
+}

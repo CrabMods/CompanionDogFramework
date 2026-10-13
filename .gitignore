@@ -1,0 +1,20 @@
+.gradle/
+build/
+runs/
+run/
+.idea/
+.vscode/
+*.iml
+__pycache__/
+.env
+.env.*
+*.key
+*.pem
+hs_err_pid*
+replay_pid*
+# Keep independently authored appearance packs outside the code snapshot.
+local-appearance-packs/
+# Keep author-internal testing infrastructure out of this source/asset backup.
+.agents/
+.minecraft-mod-testing/
+AGENTS.md

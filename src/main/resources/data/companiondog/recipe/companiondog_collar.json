@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [{"item":"minecraft:leather"},{"item":"minecraft:string"},{"item":"minecraft:gold_nugget"}],
+  "result": {"id":"companiondog:companiondog_collar","count":1}
+}

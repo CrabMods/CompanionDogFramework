@@ -1,0 +1,154 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.139'
+    id 'idea'
+}
+
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = "${mod_id}-${minecraft_version}"
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+// Hidden-client appearance harness; loaded only with -PvisualTest, never packaged in the mod JAR.
+sourceSets {
+    visualTest {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+def visualTest = project.hasProperty('visualTest')
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    runs {
+        client {
+            client()
+            programArguments.addAll('--width', '1280', '--height', '720')
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            if (visualTest) {
+                systemProperty 'companiondog.visualtest', 'true'
+                systemProperty 'companiondog.visualtest.receipt', project.property('visualTestReceipt').toString()
+                systemProperty 'companiondog.visualtest.output', project.property('visualTestOutput').toString()
+                systemProperty 'companiondog.visualtest.reloadOnly', project.hasProperty('resourceReloadOnly').toString()
+                jvmArgument '-Xmx1536m'
+                jvmArgument '-XX:ActiveProcessorCount=2'
+            }
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            jvmArgument '-Xmx1536m'
+            jvmArgument '-XX:ActiveProcessorCount=2'
+            jvmArgument '-Djava.awt.headless=true'
+        }
+
+        configureEach {
+            if (project.hasProperty('minecraftModTestingRuntimeDirectory')) {
+                gameDirectory = project.file(project.property('minecraftModTestingRuntimeDirectory'))
+            }
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.INFO
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+        if (visualTest) {
+            companiondog_visualtest { sourceSet(sourceSets.visualTest) }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+dependencies {
+    testImplementation 'com.google.code.gson:gson:2.10.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.named('jar', Jar) {
+    exclude '**/*Tests.class', '**/*Tests$*.class'
+    exclude 'data/companiondog/structure/empty.nbt'
+}
+
+// Python is already required by mod-build; these checks need only its standard library.
+tasks.register('testGeneratedAssets', Exec) {
+    group = 'verification'
+    description = 'Static contracts for the generated default dog (UVs, seams, masks, reproducibility).'
+    inputs.dir('tools')
+    inputs.dir('src/main/resources/assets')
+    outputs.upToDateWhen { false }
+    commandLine 'python', 'tools/test_default_dog.py'
+}
+tasks.register('verifyPublicBoundary', Exec) {
+    group = 'verification'
+    description = 'Rejects non-generated artwork, media and credentials in the repository and the built JAR.'
+    def jarTask = tasks.named('jar', Jar)
+    dependsOn jarTask
+    commandLine 'python', 'tools/verify_public_boundary.py', '--jar', jarTask.get().archiveFile.get().asFile.absolutePath
+}
+tasks.named('check') { dependsOn 'testGeneratedAssets', 'verifyPublicBoundary' }
+
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
+}
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(ProcessResources).configureEach {
+    filteringCharset = 'UTF-8'
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
+
+apply from: '.minecraft-mod-testing/gradle/minecraft-mod-testing.gradle'
