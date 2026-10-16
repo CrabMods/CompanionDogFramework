@@ -1,44 +1,80 @@
 # Companion Dog Framework
 
-Research software for interactive memorial lifecycle design, combining
-a generic game-companion implementation with a retrospective HCI design case.
+A Minecraft dog companion with replaceable artwork, procedural interactions,
+ball and disc fetch, and protected recovery. This repository brings together
+the generic mod source and a human-computer interaction (HCI) design-case paper
+on interactive memorial lifecycle design.
 
-**Research source repository.** The paper has a separate public archive. The
-generic implementation and generated appearance are later technical material;
-they are distinct from the original collaboration and personal likeness.
+![The generic grey-and-white companion shown from the rear, both sides and front in Minecraft](docs/companion-four-views.png)
 
-## Paper
+*The bundled generic dog, captured from four directions by the game client.
+This is the standing view used in the paper.*
 
-**Interpreting Memorial Requirements as Lifecycle Rules: A Design Case of
-AI-Assisted Construction**
+| For Players and Mod Makers | For Researchers |
+| --- | --- |
+| [Companion controls](#meet-your-companion), [appearance authoring](#make-your-own-dog) and [code guide](#code-guide) | [Research question and paper](#research), [evidence scope](docs/RESEARCH.md) and [citation](#citation-and-rights) |
 
-Alex Chengyu Li, Independent Researcher, Tokyo, Japan.
-
-- [English manuscript, version 2.0](docs/memorial-lifecycle-rules-v2.0.pdf)
-- [Public paper archive and version history](https://doi.org/10.5281/zenodo.23320935)
-- [Research scope and evidence map](docs/RESEARCH.md)
-- [Changes and release identities](CHANGELOG.md)
-
-The paper asks how memorial requirements become revisable lifecycle rules.
-Its central case follows the revision from compulsory recovery after any injury
-to ordinary healing plus protected return after lethal danger. Administrative
-removal and archival recovery provide a second contrast: the same quiet
-disappearance can retain different possibilities for later recovery. The
-analysis distinguishes presentation, interruption of companionship, and retained
-recovery information.
-
-The later generic implementation supports technical inspection of these rules
-apart from the personal appearance. Version 2.0 adds a recorded four-view client
-figure, a lifecycle rule table, source correspondence and scoped scenario
-observations. The working-paper design case reports implemented lifecycle
-contrasts within one collaboration. Owner experience and comparative creation
-effort are topics for further research.
-
-## Implementation
+## Players and Mod Makers
 
 Minecraft **1.21.1**, NeoForge **21.1.84**, Java **21**. Application version:
 **0.1.0**. Research tags, such as `research-v2.0`, version the paper/implementation
 association without renumbering the mod.
+
+### Meet Your Companion
+
+The mod belongs on both the server and connecting clients. A player receives a
+collar on first joining a world. Right-click with it in a safe location to welcome
+the bound companion; later uses call that same dog back to you. A replacement
+collar can be crafted with leather, string and a gold nugget.
+
+| Interaction | What to do |
+| --- | --- |
+| Commands and tricks | Hold a bone and right-click your dog to open its menu: follow, sit, lie down, sleep, give paw, play bow and more |
+| Petting and feeding | Right-click with an empty hand to pet; offer food accepted by the vanilla wolf-food tag to feed |
+| Home | Sneak-right-click with the collar, or choose **Set home here** from the bone menu |
+| Ball and disc | Right-click with a tennis ball or flying disc to throw it for retrieval; the ball bounces and the disc uses drag/lift |
+| Recovery | Ordinary injuries heal over time; lethal danger initiates protected return and rest. The owner can choose **End rest** after safe arrival |
+
+Craft two tennis balls from a slime ball and lime or yellow wool. A flying disc
+uses two paper, a slime ball and cyan dye. The owner can also retrieve a held
+toy by right-clicking the dog with an empty hand.
+
+| Give Paw | Play Bow |
+| --- | --- |
+| ![Four-direction client capture of the dog offering a paw](docs/companion-give-paw.png) | ![Four-direction client capture of the dog in a play bow](docs/companion-play-bow.png) |
+
+*Sampled moments from the existing client captures, not animated previews.
+The [known animation limits](#verification-and-known-limits) remain documented.*
+
+### Make Your Own Dog
+
+Appearance is defined in a client resource pack. The server retains ownership,
+recall, fetch and recovery behavior while the client loads the chosen geometry
+and textures. A selected pack applies to all framework dogs on that client.
+
+1. Start with the [appearance contract](docs/APPEARANCE_CONTRACT.md) and the
+   [empty pack template](appearance-pack-template/). The template intentionally
+   renders no dog until its geometry and textures are filled in.
+2. For a skin change, retain the bundled geometry, UV layout, joint pivots and
+   mouth sockets. Replace the normal texture and optional blink, happy, sleep
+   and collar textures.
+3. For a different shape, author the 19-bone rig in
+   `assets/companiondog/appearance/dog.json`. Tune pivots, geometry, motion scale
+   and the ball/disc sockets. The existing animation driver provides 5 poses
+   and 18 one-shot actions; new proportions need checks across those movements.
+4. Enable the pack above the default resources and reload. Inspect poses,
+   ground contact, ears, tail, jaw/tongue and toy contact. The hitbox remains
+   **0.55 x 0.8 blocks**. Larger breeds need a separate server-side dimension
+   policy.
+
+The [included asset generator](tools/generate_default_dog.py) specifies the
+default cubes, joint positions, UVs, texture pixels and toy models. The
+[asset-authoring brief](docs/ASSET_GENERATION_BRIEF.md) gives a handoff checklist
+for another artist or tool. For Blockbench work, use the fixed hierarchy and
+coordinate conventions in the contract; the runtime interface is the documented
+JSON and PNG files.
+
+### Code Guide
 
 | Area | Implemented behavior |
 | --- | --- |
@@ -48,27 +84,68 @@ association without renumbering the mod.
 | Fetch | Shared toy claims and retrieval; distinct bouncing-ball and flying-disc physics |
 | Appearance | Resource-defined rig and textures, rebuilt on client resource reload |
 
+Under [`src/main/java/com/crabmods/companiondog/`](src/main/java/com/crabmods/companiondog/):
+
+- `entity/CompanionDogEntity.java` handles interaction and lifecycle behavior;
+  `CompanionDogGoals.java` handles companion and fetch goals.
+- `entity/FetchToyEntity.java`, `TennisBallEntity.java` and `FrisbeeEntity.java`
+  share retrieval support while keeping their flight physics separate.
+- `world/CompanionDogBindings.java` and `CompanionDogSafety.java` manage saved
+  identity, recall, recovery records and safe placement.
+- `client/model/CompanionDogModel.java` supplies procedural animation;
+  `DogAppearance.java` and `DogAppearanceDefinition.java` load the resource rig.
+- `network/` carries client/server commands and arrival feedback.
+
 The framework uses its own entity, item and saved-data identifiers. It does not
-provide migration from other companion mods or per-dog breed selection. A client
-appearance pack affects all framework dogs on that client.
-
-## Appearance and Provenance
-
-The grey-and-white default dog, entity textures and toy/item assets are generated
-by [the included program](tools/generate_default_dog.py). It defines geometry,
-joint positions, UVs and pixels without consuming a photograph, reference image,
-downloaded model or texture. The included source specifies a reproducible
-asset-construction path.
-
-Personal photographs, predecessor artwork, identifying case material, raw
-dialogue and predecessor Git history are excluded. The original private project
-is not modified by this research archive.
+provide migration from other companion mods or per-dog breed selection.
 
 - [Source and asset provenance](docs/PROVENANCE.md)
-- [Appearance contract](docs/APPEARANCE_CONTRACT.md)
-- [Asset-generation brief](docs/ASSET_GENERATION_BRIEF.md)
-- [Empty external-pack template](appearance-pack-template/)
 - [Third-party notices](THIRD_PARTY_NOTICES.md)
+
+## Research
+
+**Interpreting Memorial Requirements as Lifecycle Rules: A Design Case of
+AI-Assisted Construction**
+
+Alex Chengyu Li, Independent Researcher, Tokyo, Japan.
+
+- [English manuscript, version 2.0](docs/memorial-lifecycle-rules-v2.0.pdf)
+- [Published version 2.0](https://doi.org/10.5281/zenodo.23417464)
+- [Public paper archive and version history](https://doi.org/10.5281/zenodo.23320935)
+- [Research scope and evidence map](docs/RESEARCH.md)
+- [Changes and release identities](CHANGELOG.md)
+
+### Question and Contribution
+
+How do memorial requirements become revisable lifecycle rules? The retrospective
+design case examines a maker's collaboration with a bereaved pet owner through
+implemented choices about injury, recovery, removal and restoration.
+
+Its central revision moves from compulsory recovery after every injury to
+ordinary healing plus protected return after lethal danger. Administrative
+removal and archival recovery provide another contrast: the same quiet
+disappearance can retain different possibilities for later recovery. The
+analysis distinguishes presentation, interruption of companionship and retained
+recovery information.
+
+### How the Code Supports the Paper
+
+The generic implementation is later technical material from the same project.
+It makes the retained rules inspectable separately from the historical case's
+personal likeness. Version 2.0 adds the four-view client figure above, a lifecycle
+rule table, source correspondence and scoped scenario observations.
+
+| Research material | Where to look |
+| --- | --- |
+| Design sequence and lifecycle analysis | Sections 3-4 and Table 1 of the [English paper](docs/memorial-lifecycle-rules-v2.0.pdf) |
+| Generic representation and rule table | Section 5, Figure 1 and Table 2 of the paper |
+| Implemented rule paths and evidence scope | [Research overview](docs/RESEARCH.md) and the code guide above |
+| Appearance replacement and recorded checks | [Appearance contract](docs/APPEARANCE_CONTRACT.md) and [technical report](docs/RESOURCE_RELOAD_TEST_REPORT.md) |
+
+The working-paper design case reports implemented lifecycle contrasts within
+one collaboration. Owner experience and comparative creation effort are topics
+for further research. Personal photographs, predecessor artwork, identifying
+case material, raw dialogue and predecessor Git history remain excluded.
 
 ## Verification and Known Limits
 

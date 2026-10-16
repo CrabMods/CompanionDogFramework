@@ -110,12 +110,18 @@ tasks.register('testGeneratedAssets', Exec) {
 }
 tasks.register('verifyPublicBoundary', Exec) {
     group = 'verification'
-    description = 'Rejects non-generated artwork, media and credentials in the repository and the built JAR.'
+    description = 'Rejects unapproved artwork, media and credentials in the repository and the built JAR.'
     def jarTask = tasks.named('jar', Jar)
     dependsOn jarTask
     commandLine 'python', 'tools/verify_public_boundary.py', '--jar', jarTask.get().archiveFile.get().asFile.absolutePath
 }
-tasks.named('check') { dependsOn 'testGeneratedAssets', 'verifyPublicBoundary' }
+tasks.register('testPublicBoundaryPolicy', Exec) {
+    group = 'verification'
+    description = 'Checks exact documentation-image hashes and exclusion from the production JAR.'
+    commandLine 'python', '-B', 'tools/test_public_boundary.py'
+}
+
+tasks.named('check') { dependsOn 'testGeneratedAssets', 'testPublicBoundaryPolicy', 'verifyPublicBoundary' }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
     var replaceProperties = [
