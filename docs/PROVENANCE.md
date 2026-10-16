@@ -35,16 +35,19 @@ The audit executed `python -B tools/generate_default_dog.py --check`: all
 endings for JSON. The repository/JAR boundary audit also passed and found no
 predecessor case names in the separately scoped identifier check.
 
-This demonstrates a reproducible production path. It cannot independently
-certify the AI's entire training set, disprove every possible similarity claim,
-or establish that a work is in the public domain. Do not describe the assets
-as "copyright-free" simply because AI assisted their construction.
+These checks establish the reproducible production path and inspected import
+boundary of the supplied assets. Their reuse terms are specified in
+LICENSE-ASSETS.md, with third-party rights preserved.
 
 ## Rights And Dependencies
 
-The current decision authorizes a private backup only. Application and asset
-metadata retain All Rights Reserved. Any later MIT-code / CC BY 4.0-art release
-must be a separate intentional licensing decision and preserve upstream rights.
+The 13 October snapshot was a private All Rights Reserved backup. On 16 October
+2026, the author explicitly authorized public repository access and selected
+MIT for application code/the generator and CC BY 4.0 for generated assets and
+the paper. Current scope is recorded in LICENSE, LICENSE-ASSETS.md and
+LICENSE-PAPER.md. LICENSE-SCOPE.md expressly includes the cited implementation
+snapshot in the author-owned grant; upstream rights are unchanged. Publication status is established
+by the actual repository/release record, not by this provenance statement.
 
 Minecraft, NeoForge, ModDevGradle, Gson, JUnit and the Gradle wrapper are not
 claimed as original application work. Dependencies are resolved by their

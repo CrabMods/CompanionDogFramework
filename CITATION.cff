@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: >-
+  Cite the paper for the lifecycle-design argument. The generic implementation
+  accompanies the research and has separate software and asset license terms.
+type: software
+title: Companion Dog Framework
+version: 0.1.0
+license: MIT
+authors:
+  - family-names: Li
+    given-names: Alex Chengyu
+    orcid: https://orcid.org/0009-0008-4516-8946
+repository-code: https://github.com/crabsatellite/CompanionDogFramework
+abstract: >-
+  Generic Minecraft/NeoForge companion implementation and later technical
+  material for a retrospective design case of AI-assisted memorial construction.
+keywords:
+  - human-computer interaction
+  - interactive digital memorials
+  - AI-assisted construction
+  - lifecycle design
+  - Minecraft
+preferred-citation:
+  type: article
+  title: >-
+    Interpreting Memorial Requirements as Lifecycle Rules:
+    A Design Case of AI-Assisted Construction
+  authors:
+    - family-names: Li
+      given-names: Alex Chengyu
+      orcid: https://orcid.org/0009-0008-4516-8946
+  year: 2026
+  version: '2.0'
+  doi: 10.5281/zenodo.23320935
+  url: https://doi.org/10.5281/zenodo.23320935
+  license: CC-BY-4.0
+  notes: Working paper; Concept DOI identifies the paper archive across versions.

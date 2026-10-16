@@ -18,3 +18,5 @@ local-appearance-packs/
 .agents/
 .minecraft-mod-testing/
 AGENTS.md
+# Author-review translations are local, not publication files.
+docs/*zh-review.pdf

@@ -18,6 +18,7 @@ MIT-licensed upstream tooling, verified and pinned by its installer. It is
 excluded from this private source/asset backup and from the production mod.
 The existing launchers still require its authorized installation; its retained
 license is at `licenses/minecraft-mod-testing.txt`. Future appearance packs need
-their own provenance and license review. Application metadata remains All Rights
-Reserved. This private backup does not assign MIT or Creative Commons terms to
-application code or art, and cannot relicense upstream dependencies.
+their own provenance and license review. Application code and the generator are
+MIT under LICENSE; generated assets are CC BY 4.0 under LICENSE-ASSETS.md.
+Paper/documentation scope is in LICENSE-PAPER.md. These author-granted licenses
+do not relicense upstream dependencies or excluded personal materials.
