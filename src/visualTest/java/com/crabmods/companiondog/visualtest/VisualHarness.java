@@ -78,6 +78,10 @@ public final class VisualHarness {
 
     public VisualHarness() {
         if (!Boolean.getBoolean("companiondog.visualtest")) throw new IllegalStateException("Test instrumentation cannot run without isolation");
+        if (Boolean.getBoolean("companiondog.visualtest.showcase")) {
+            new CompanionShowcase();
+            return;
+        }
         for (var pose : CompanionDogPose.values()) cases.add(Case.of("pose." + name(pose), pose, CompanionDogAction.NONE, 0));
         for (var action : CompanionDogAction.values()) {
             if (action == CompanionDogAction.NONE) continue;

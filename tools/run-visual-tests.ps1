@@ -3,6 +3,7 @@ param(
     [string]$PackDirectory = '',
     [string]$OutputDirectory = '',
     [switch]$ReloadOnly,
+    [switch]$Showcase,
     [int]$LockTimeoutSeconds = 0
 )
 Set-StrictMode -Version Latest
@@ -18,6 +19,8 @@ if (-not $output.StartsWith((Join-Path $root 'build/visual-tests') + [IO.Path]::
 $receipt = Join-Path $output 'client-receipt.json'
 $ExpectedScenarios = 98 # 89 appearance scenarios and 9 actual resource-pack reloads.
 if ($ReloadOnly) { $ExpectedScenarios = 10 }
+if ($Showcase -and $ReloadOnly) { throw 'Showcase and ReloadOnly are separate scopes.' }
+if ($Showcase) { $ExpectedScenarios = 9 }
 
 if ($env:MINECRAFT_MOD_TEST_SINGLE_INSTANCE -ne '1') {
     & (Join-Path $root 'mod-build.ps1') ensure
@@ -25,6 +28,7 @@ if ($env:MINECRAFT_MOD_TEST_SINGLE_INSTANCE -ne '1') {
     $arguments = @('-NoProfile', '-NonInteractive', '-File', $PSCommandPath, '-OutputDirectory', $output)
     if ($PackDirectory) { $arguments += @('-PackDirectory', (Resolve-Path -LiteralPath $PackDirectory).Path) }
     if ($ReloadOnly) { $arguments += '-ReloadOnly' }
+    if ($Showcase) { $arguments += '-Showcase' }
     & (Join-Path $root '.agents/skills/minecraft-mod-testing/scripts/invoke_single_session.ps1') `
         -ProjectRoot $root -Executable (Get-Command pwsh).Source -ArgumentList $arguments -RuntimeKind client `
         -RuntimeDirectory $runtime -HarnessReceiptPath $receipt -ExpectedScenarioCount $ExpectedScenarios `
@@ -71,6 +75,7 @@ try {
     try {
         $scope = @()
         if ($ReloadOnly) { $scope += '-PresourceReloadOnly' }
+        if ($Showcase) { $scope += '-PcompanionShowcase' }
         & .\gradlew.bat runClient --no-daemon --console=plain -PvisualTest `
             "-PvisualTestReceipt=$receipt" "-PvisualTestOutput=$output" "-PminecraftModTestingRuntimeDirectory=$runtime" @scope
         $code = $LASTEXITCODE

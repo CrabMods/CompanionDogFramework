@@ -44,6 +44,7 @@ neoForge {
                 systemProperty 'companiondog.visualtest.receipt', project.property('visualTestReceipt').toString()
                 systemProperty 'companiondog.visualtest.output', project.property('visualTestOutput').toString()
                 systemProperty 'companiondog.visualtest.reloadOnly', project.hasProperty('resourceReloadOnly').toString()
+                systemProperty 'companiondog.visualtest.showcase', project.hasProperty('companionShowcase').toString()
                 jvmArgument '-Xmx1536m'
                 jvmArgument '-XX:ActiveProcessorCount=2'
             }

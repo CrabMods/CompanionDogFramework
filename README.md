@@ -14,6 +14,17 @@ This is the standing view used in the paper.*
 | --- | --- |
 | [Companion controls](#meet-your-companion), [appearance authoring](#make-your-own-dog) and [code guide](#code-guide) | [Research question and paper](#research), [evidence scope](docs/RESEARCH.md) and [citation](#citation-and-rights) |
 
+## Gameplay Showcase
+
+[![Watch the gameplay video: the bone menu and a companion offering its paw](docs/companion-gameplay-poster.png)](https://github.com/crabsatellite/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4)
+
+**[Watch the 58-second gameplay video](https://github.com/crabsatellite/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4)**
+(720p MP4, silent, English captions).
+
+Welcome your companion, open the bone menu, pet, give paw, play bow, feed,
+fetch a tennis ball, retrieve a flying disc and settle down to sleep.
+The [scene guide](docs/GAMEPLAY_SHOWCASE.md) includes timestamps and recording details.
+
 ## Players and Mod Makers
 
 Minecraft **1.21.1**, NeoForge **21.1.84**, Java **21**. Application version:

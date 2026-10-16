@@ -6,9 +6,12 @@ The following author-owned materials are licensed under the **Creative Commons
 Attribution 4.0 International license (CC BY 4.0)**:
 
 - `docs/memorial-lifecycle-rules-v2.0.pdf`;
-- `README.md`, `docs/RESEARCH.md`, `CHANGELOG.md` and `CITATION.cff`;
+- `README.md`, `docs/RESEARCH.md`, `docs/GAMEPLAY_SHOWCASE.md`, `CHANGELOG.md` and `CITATION.cff`;
 - the generic client-capture illustrations `docs/companion-four-views.png`,
-  `docs/companion-give-paw.png` and `docs/companion-play-bow.png`;
+  `docs/companion-give-paw.png`, `docs/companion-play-bow.png` and
+  `docs/companion-gameplay-poster.png`;
+- the author's footage and captions in `companiondog-gameplay-showcase.mp4`,
+  distributed as an attachment to the `research-v2.0` release;
 - the author-written research release notes for `research-v2.0`.
 
 License terms: https://creativecommons.org/licenses/by/4.0/

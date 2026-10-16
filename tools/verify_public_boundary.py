@@ -40,6 +40,7 @@ DOCUMENTATION_IMAGES = {
     "docs/companion-four-views.png": "ace7bed8b917dea43e7489c97b36237367c9e234049c985146eca6cd86e83759",
     "docs/companion-give-paw.png": "e3f9ace3a99c7250d926f6adaccd7b2dc22ca2d4aa06293bc6a5f42d0983d8d6",
     "docs/companion-play-bow.png": "a9c5dbd8a9f29f9927fbd0d1e625b37d5e4226db38213384212fa6724eae5b70",
+    "docs/companion-gameplay-poster.png": "1daf835afe27449a331cd3e913fdb5a6d40e212fb1ad20408705ea8413591050",
 }
 
 
