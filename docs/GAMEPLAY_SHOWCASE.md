@@ -1,8 +1,8 @@
 # Gameplay Showcase
 
-[Watch the 58-second gameplay video](https://github.com/crabsatellite/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4)
+[Watch the 58-second gameplay video](https://github.com/CrabMods/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4)
 
-[![Companion dog offering a paw through the bone interaction menu](companion-gameplay-poster.png)](https://github.com/crabsatellite/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4)
+[![Companion dog offering a paw through the bone interaction menu](companion-gameplay-poster.png)](https://github.com/CrabMods/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4)
 
 ## Scene Guide
 

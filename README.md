@@ -13,9 +13,9 @@ behavior.
 
 ## Gameplay Showcase
 
-[![Watch the gameplay demo: the companion offers a paw through the bone menu](docs/companion-gameplay-poster.png)](https://github.com/crabsatellite/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4)
+[![Watch the gameplay demo: the companion offers a paw through the bone menu](docs/companion-gameplay-poster.png)](https://github.com/CrabMods/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4)
 
-**[Watch the gameplay demo](https://github.com/crabsatellite/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4)**
+**[Watch the gameplay demo](https://github.com/CrabMods/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4)**
 with English captions. The video is silent.
 
 Welcome your companion, pet, give paw, play bow, feed, fetch a tennis ball,

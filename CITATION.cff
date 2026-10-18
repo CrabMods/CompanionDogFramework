@@ -10,7 +10,7 @@ authors:
   - family-names: Li
     given-names: Alex Chengyu
     orcid: https://orcid.org/0009-0008-4516-8946
-repository-code: https://github.com/crabsatellite/CompanionDogFramework
+repository-code: https://github.com/CrabMods/CompanionDogFramework
 abstract: >-
   Generic Minecraft/NeoForge companion implementation and later technical
   material for a retrospective design case of AI-assisted memorial construction.
