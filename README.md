@@ -1,35 +1,88 @@
 # Companion Dog Framework
 
-A Minecraft companion dog for petting, tricks, fetch and owner-controlled home and rest. Resource packs can change its appearance.
+A Minecraft companion dog for petting, tricks and games of fetch. Customize its
+appearance with a resource pack, or use the source to build your own companion
+mod. The accompanying paper explores how personal memorial wishes become game
+behavior.
 
-[Full guide](https://crabmods.com/mods/companion) · [Gameplay demo](https://github.com/CrabMods/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4) · [Source](https://github.com/CrabMods/CompanionDogFramework)
+![Front, rear and side views of the grey-and-white companion](docs/companion-four-views.png)
 
-## Play and customize
+| Players and Mod Makers | Researchers |
+| --- | --- |
+| [Meet your companion](#meet-your-companion), [make your own dog](#make-your-own-dog), [explore the code](#code-guide) | [Read the paper](#research), [research overview](docs/RESEARCH.md), [citation](#citation-and-rights) |
 
-- Welcome or recall the same bound dog with its collar.
-- Use a bone for the owner's command menu; pet and feed the dog.
-- Throw a bouncing tennis ball or gliding flying disc for fetch.
-- Set a home and control rest after protected recovery.
-- Replace geometry and textures through a client resource pack.
+> **Full player guide:** For advanced features, complete recipes, detailed effects, configuration and compatibility, visit the [official Companion Dog guide](https://crabmods.com/mods/companion).
 
-Targets Minecraft 1.21.1, NeoForge and Java 21. Install on the server and clients. The published release currently contains research and showcase assets, with no installable JAR; build from source using `./mod-build.ps1 build`. The build requires a separately installed managed test runner.
+**Minecraft 1.21.1 · NeoForge · Java 21.** The current public release contains research and showcase assets, not an installable JAR. Build from source to play; the build requires a separately installed managed test runner.
 
-The first world login gives a collar (dropped nearby if inventory is full). Right-click with it in a safe place, then use a bone on your dog. A replacement collar uses leather, string and a gold nugget.
+## Gameplay Showcase
 
-[Controls, recipes and recovery](https://crabmods.com/mods/companion) · [Appearance contract](docs/APPEARANCE_CONTRACT.md) · [Pack template](appearance-pack-template/) · [Source code](src/main/java/com/crabmods/companiondog/) · [Known animation limits](docs/RESOURCE_RELOAD_TEST_REPORT.md)
+[![Watch the gameplay demo: the companion offers a paw through the bone menu](docs/companion-gameplay-poster.png)](https://github.com/CrabMods/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4)
 
-## Research and rights
+**[Watch the gameplay demo](https://github.com/CrabMods/CompanionDogFramework/releases/download/research-v2.0/companiondog-gameplay-showcase.mp4)**
+with English captions. The video is silent.
 
-The accompanying design case examines how memorial requirements become companion lifecycle rules.
+Welcome your companion, pet, give paw, play bow, feed, fetch a tennis ball,
+retrieve a flying disc and settle down to sleep.
+[Scene guide](docs/GAMEPLAY_SHOWCASE.md).
 
-[Paper](docs/memorial-lifecycle-rules-v2.0.pdf) · [Research overview](docs/RESEARCH.md) · [Citation](CITATION.cff) · [Provenance](docs/PROVENANCE.md) · [Changes](CHANGELOG.md)
+## Players and Mod Makers
 
-Code and generator: [MIT](LICENSE). Game assets: [CC BY 4.0](LICENSE-ASSETS.md). Paper, documentation and footage: [CC BY 4.0](LICENSE-PAPER.md). [License scope](LICENSE-SCOPE.md) · [Third-party notices](THIRD_PARTY_NOTICES.md).
+For **Minecraft 1.21.1**, **NeoForge** and **Java 21**.
 
-## 中文
+### Meet Your Companion
 
-Minecraft 伙伴狗：抚摸、把戏、网球与飞盘捡回，以及由主人控制的回家和休息。资源包可以替换外观。
+Install the mod on the server and connecting clients. Your collar arrives when
+you first join a world. Right-click with it in a safe place to welcome your dog;
+use it again to call your companion back to you. A replacement collar can be
+crafted with leather, string and a gold nugget.
 
-目标为 Minecraft 1.21.1 / NeoForge / Java 21，服务端和客户端均需安装。目前发布页仅含研究与演示素材，没有可直接安装的 JAR，需从源码构建。首次进服会收到项圈，用它迎接或召回同一只绑定伙伴；主人主手持骨头右键打开菜单。
+| Interaction | What to do |
+| --- | --- |
+| Commands and tricks | As the owner, hold a bone in your main hand and right-click your dog for follow, sit, lie down, sleep, give paw, play bow and other commands |
+| Petting | Right-click with an empty hand |
+| Feeding | Offer food accepted by vanilla wolves |
+| Home | Sneak-right-click with the collar, or choose **Set home here** in the bone menu |
+| Fetch | Throw a tennis ball or flying disc; your dog brings it back. An empty-hand right-click also takes a held toy |
+| Recovery | Ordinary injuries heal over time. Lethal danger sends your companion home to rest; choose **End rest** after arrival to resume companionship |
 
-[完整指南](https://crabmods.com/mods/companion)包含操作、配方、恢复和外观制作说明；[研究说明](docs/RESEARCH.md)介绍配套设计案例。
+The ball bounces; the disc glides. Both share the same retrieval behavior.
+[Collar and toy recipes](src/main/resources/data/companiondog/recipe/).
+
+| Give Paw | Play Bow |
+| --- | --- |
+| ![The companion offering a paw](docs/companion-give-paw.png) | ![The companion in a play bow](docs/companion-play-bow.png) |
+
+### Make Your Own Dog
+
+Geometry and textures live in a client resource pack. Ownership, recall, fetch and recovery stay in the behavior code. The selected appearance applies to all framework dogs on that client.
+
+Start with the [appearance contract](docs/APPEARANCE_CONTRACT.md) and [pack template](appearance-pack-template/). Replace the skin or adapt the rig while keeping the documented bone hierarchy and toy attachment points. The official guide covers the authoring workflow and in-game checks.
+
+### Code Guide
+
+Explore [`src/main/java/com/crabmods/companiondog/`](src/main/java/com/crabmods/companiondog/) for interactions, recall, toy physics and animation.
+
+### Build
+
+Build with `./mod-build.ps1 build` after installing the required managed test runner.
+
+The ears and tail can currently clip into the ground during some animations. See the [technical report](docs/RESOURCE_RELOAD_TEST_REPORT.md) for remaining issues.
+
+## Research
+
+**[Interpreting Memorial Requirements as Lifecycle Rules: A Design Case of AI-Assisted Construction](docs/memorial-lifecycle-rules-v2.0.pdf)**
+
+How should a digital companion respond to injury, absence and return? The accompanying design case examines how memorial requirements become inspectable companion lifecycle rules.
+
+[Research overview](docs/RESEARCH.md) · [Citation](CITATION.cff) · [Source and asset provenance](docs/PROVENANCE.md) · [Changes](CHANGELOG.md)
+
+## Citation and Rights
+
+Code and generator: [MIT](LICENSE). Game assets: [CC BY 4.0](LICENSE-ASSETS.md). Paper, documentation and showcase footage: [CC BY 4.0](LICENSE-PAPER.md). See [license scope](LICENSE-SCOPE.md) and [third-party notices](THIRD_PARTY_NOTICES.md).
+
+## More details
+
+For more advanced features, full recipes, effect values, configuration and compatibility help, see the **[official player guide](https://crabmods.com/mods/companion)**.
+
+[Downloads and release notes](https://github.com/CrabMods/CompanionDogFramework/releases) · [Report a bug](https://github.com/CrabMods/CompanionDogFramework/issues)
